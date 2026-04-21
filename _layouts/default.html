@@ -1,9 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <title>{{ page.title }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+
+  {% feed_meta %}
+  {% seo %}
 </head>
 <body>
-  {{ content }}
+
+  <!-- ░░ TOP BAR ░░ -->
+  <div class="topbar">
+    <span>Reviews independentes • Comparativos honestos • Dicas de compra</span>
+  </div>
+
+  <!-- ░░ HEADER ░░ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="{{ '/' | relative_url }}" class="site-logo">
+        <span class="logo-icon">★</span>
+        <span class="logo-text">{{ site.title | default: "ReviewPro" }}</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Navegação principal">
+        <ul>
+          <li><a href="{{ '/reviews' | relative_url }}">Reviews</a></li>
+          <li><a href="{{ '/comparativos' | relative_url }}">Comparativos</a></li>
+          <li><a href="{{ '/categorias' | relative_url }}">Categorias</a></li>
+          <li><a href="{{ '/sobre' | relative_url }}">Sobre</a></li>
+        </ul>
+      </nav>
+
+      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ░░ MAIN ░░ -->
+  <main class="site-main" id="main-content">
+    <div class="container">
+      {{ content }}
+    </div>
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+
+      <div class="footer-brand">
+        <a href="{{ '/' | relative_url }}" class="site-logo">
+          <span class="logo-icon">★</span>
+          <span class="logo-text">{{ site.title | default: "ReviewPro" }}</span>
+        </a>
+        <p>Reviews honestos para decisões de compra mais inteligentes.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Conteúdo</h4>
+        <ul>
+          <li><a href="{{ '/reviews' | relative_url }}">Últimos Reviews</a></li>
+          <li><a href="{{ '/comparativos' | relative_url }}">Comparativos</a></li>
+          <li><a href="{{ '/melhores' | relative_url }}">Melhores de 2025</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="{{ '/sobre' | relative_url }}">Sobre nós</a></li>
+          <li><a href="{{ '/contato' | relative_url }}">Contato</a></li>
+          <li><a href="{{ '/politica-afiliados' | relative_url }}">Política de Afiliados</a></li>
+          <li><a href="{{ '/privacidade' | relative_url }}">Privacidade</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="affiliate-notice">
+          <strong>Aviso:</strong> Este site participa de programas de afiliados. Podemos receber comissão por compras feitas através dos nossos links, sem custo adicional para você.
+        </p>
+        <p class="copyright">© {{ 'now' | date: "%Y" }} {{ site.title | default: "ReviewPro" }}. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.site-nav');
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        nav.classList.toggle('is-open');
+        toggle.classList.toggle('is-active');
+      });
+    }
+
+    // Sticky header shadow on scroll
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 10);
+    }, { passive: true });
+  </script>
+
 </body>
 </html>
