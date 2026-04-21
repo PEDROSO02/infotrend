@@ -3,9 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <title>Admin</title>
+
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
+
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </head>
+
 <body>
   <div id="nc-root"></div>
+
+  <script>
+    CMS.init({
+      config: "/infotrend/admin/config.yml"
+    });
+  </script>
 </body>
 </html>
