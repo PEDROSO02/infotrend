@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: pedroso02/infotrend
+  repo: PEDROSO02/infotrend
   branch: main
 
 media_folder: "images"
