@@ -3,9 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <title>Admin</title>
+
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
+
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </head>
 <body>
   <div id="nc-root"></div>
+
+  <script>
+    CMS.init({
+      config: {
+        backend: {
+          name: "github",
+          repo: "pedroso02/infotrend",
+          branch: "main"
+        },
+        media_folder: "images",
+        public_folder: "/images",
+        collections: [
+          {
+            name: "posts",
+            label: "Posts",
+            folder: "_posts",
+            create: true,
+            fields: [
+              { label: "Título", name: "title", widget: "string" },
+              { label: "Conteúdo", name: "body", widget: "markdown" }
+            ]
+          }
+        ]
+      }
+    });
+  </script>
 </body>
 </html>
